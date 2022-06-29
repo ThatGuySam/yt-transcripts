@@ -199,13 +199,13 @@ class handler(BaseHTTPRequestHandler):
         query_string = dict(parse_qsl(urlparse(self.path).query))
 
         responses = get(query_string)
-        # cache max age 2 hours
-        max_age = 60 * 60 * 2
+        # cache max age
+        thirty_days = 30 * 24 * 60 * 60
 
         # status code always 200 OK
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Cache-Control", f"public, max-age={max_age}")
+        self.send_header("Cache-Control", f"public, s-max-age={thirty_days}")
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         # convert python dict to json
